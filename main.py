@@ -2,9 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import pyautogui
-import keyboard
 import tkinter as tk
-import PIL
 from PIL import ImageTk, Image
 
 global cam_enable
@@ -95,20 +93,13 @@ def toggleCam():
         update()
 
 def add_gaussian_noise(image, mean=0, sigma=25):
-    # Generate random Gaussian noise
     row, col, ch = image.shape
     gauss = np.random.normal(mean, sigma, (row, col, ch))
-
-    # Add the noise to the image
     noisy = image + gauss
-
-    # Clip values to be in the valid range [0, 255]
     noisy = np.clip(noisy, 0, 255)
-
     return noisy.astype(np.uint8)
 
 def remove_gaussian_noise(image, kernel_size=(5, 5), sigma=1.5):
-    # Apply Gaussian blur to the image
     blurred = cv2.GaussianBlur(image, kernel_size, sigma)
 
     return blurred
